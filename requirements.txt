@@ -1,0 +1,12 @@
+ultralytics==8.1.28
+easyocr==1.7.1
+label-studio==1.7.0
+label-studio-converter==0.0.48rc0
+label-studio-tools==0.0.1
+opencv-contrib-python==4.5.4.60 
+opencv-python==4.9.0.80
+PyYAML==6.0.1
+scikit-learn
+streamlit==1.17.0
+torch==2.2.1
+torchvision==0.17.1
