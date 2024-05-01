@@ -1,5 +1,4 @@
 # C:\Users\Dhruv Saxena\anaconda3\envs\yolov8\lib\site-packages\cv2\typing\__init__.py  ---> Comment line 168
-# conda install chardet
 
 from ultralytics import YOLO
 from easyocr import Reader

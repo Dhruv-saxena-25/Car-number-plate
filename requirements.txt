@@ -10,3 +10,6 @@ scikit-learn
 streamlit==1.17.0
 torch==2.2.1
 torchvision==0.17.1
+chardet
+altair==4.2.2
+mysql-connector-python
