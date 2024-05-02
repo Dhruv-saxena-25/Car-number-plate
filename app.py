@@ -1,6 +1,7 @@
 import streamlit as st
 from ultralytics import YOLO
 from easyocr import Reader
+import mysql.connector 
 import cv2
 import os
 import sys
@@ -8,6 +9,19 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detect import detect_number_plate, recognize_number_plate
 
 
+
+# MySQL Connection
+
+mydb= mysql.connector.connect(
+    host= 'localhost',
+    user= 'root',
+    password= 'root@123',
+    database= 'car_yolov8'
+)
+
+my_cursor=mydb.cursor()
+
+ 
 st.set_page_config(page_title= "Automatic NPR", page_icon=":car:", layout="wide")
 st.title('Automatic Number Plate Recognition System :car:')
 st.markdown("---")
@@ -65,10 +79,34 @@ if uploaded_file is not None:
                 st.subheader("Cropped Number Plate")
                 st.image(cropped_number_plate, width=300)
                 st.success("Number plate text: **{}**".format(text))
+            
+            try:
+                query1 = 'SELECT Num_plate FROM car_num WHERE Num_plate = %s'
+                my_cursor.execute(query1, (text,))
+                result = my_cursor.fetchone()
 
+                if result is not None:
+                    if text == str(result[0]):
+                        query = "SELECT Name FROM car_num WHERE Num_plate = %s"
+                        my_cursor.execute(query, (text,))
+                        result = my_cursor.fetchone()
+
+                        if result is not None:
+                            st.success(f"Vechile Owner: {result[0]}")
+                        else:
+                            st.error('No matching name found')
+                            # print("No matching name found")
+                    else:
+                        st.error("Text does not match Num_plate")
+                        # print("Text does not match Num_plate")
+                else:
+                    st.error(f"Vechile Owner: {'Unknown'}")
+                    # print("No matching Num_plate found")
+
+            except mysql.connector.Error as err:
+                print(f"Error executing query: {err}")
         else:
             st.error("No number plate detected.")
-
 else:
     st.info("Please upload an image to get started.")
 

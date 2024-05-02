@@ -10,7 +10,7 @@ import os
 import csv
 
 
-CONFIDENCE_THRESHOLD = 0.4
+CONFIDENCE_THRESHOLD = 0.70
 COLOR = (0, 255, 0)
 
 def detect_number_plate(image, model, display=False):  
