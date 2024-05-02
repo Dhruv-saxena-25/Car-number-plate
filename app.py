@@ -21,7 +21,6 @@ mydb= mysql.connector.connect(
 
 my_cursor=mydb.cursor()
 
- 
 st.set_page_config(page_title= "Automatic NPR", page_icon=":car:", layout="wide")
 st.title('Automatic Number Plate Recognition System :car:')
 st.markdown("---")
